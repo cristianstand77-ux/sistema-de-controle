@@ -1,433 +1,246 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Cadastro de Aluno</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+{% extends "alunos/sidebar.html" %}
+{% block title %}Cadastro de Aluno{% endblock %}
 
-    <style>
-        :root {
-            --bg: #0f1117;
-            --surface: #181c27;
-            --surface2: #1e2235;
-            --border: rgba(255,255,255,0.07);
-            --accent: #4f8ef7;
-            --accent2: #7c5cfc;
-            --accent-glow: rgba(79,142,247,0.18);
-            --text: #e8eaf0;
-            --text-muted: #7a8099;
-            --success-bg: rgba(52,211,153,0.1);
-            --success-text: #34d399;
-            --error-bg: rgba(248,113,113,0.1);
-            --error-text: #f87171;
-            --radius: 14px;
-            --radius-sm: 8px;
-        }
+{% block extra_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    :root {
+        --bg: #0f1117;
+        --surface: #181c27;
+        --surface2: #1e2235;
+        --border: rgba(255,255,255,0.07);
+        --accent: #4f8ef7;
+        --accent2: #7c5cfc;
+        --accent-glow: rgba(79,142,247,0.18);
+        --text: #e8eaf0;
+        --text-muted: #7a8099;
+        --success-bg: rgba(52,211,153,0.1);
+        --success-text: #34d399;
+        --error-bg: rgba(248,113,113,0.1);
+        --error-text: #f87171;
+        --radius: 14px;
+        --radius-sm: 8px;
+    }
 
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 24px;
-            position: relative;
-            overflow: hidden;
-        }
+    /* sobrescreve o body do sidebar.html para esta página */
+    body {
+        font-family: 'DM Sans', sans-serif;
+    }
 
-        /* Fundo com gradiente animado */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 60% 50% at 20% 20%, rgba(79,142,247,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 60% at 80% 80%, rgba(124,92,252,0.07) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: 0;
-        }
+    .main-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px 48px;
+        position: relative;
+    }
 
-        /* Grade sutil de fundo */
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
+    /* gradiente de fundo */
+    .main-content::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 60% 50% at 20% 20%, rgba(79,142,247,0.08) 0%, transparent 60%),
+            radial-gradient(ellipse 50% 60% at 80% 80%, rgba(124,92,252,0.07) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+    }
 
-        /* Assinatura discreta */
-        .signature {
-            position: fixed;
-            bottom: 16px;
-            right: 20px;
-            font-family: 'DM Serif Display', serif;
-            font-size: 11px;
-            color: rgba(255,255,255,0.1);
-            letter-spacing: 0.15em;
-            text-transform: lowercase;
-            z-index: 100;
-            user-select: none;
-            transition: color 0.4s;
-        }
+    /* grade sutil */
+    .main-content::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+        z-index: 0;
+    }
 
-        .signature:hover {
-            color: rgba(79,142,247,0.35);
-        }
+    .container {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        width: 100%;
+        max-width: 440px;
+        box-shadow:
+            0 0 0 1px rgba(255,255,255,0.04),
+            0 20px 60px rgba(0,0,0,0.5),
+            0 4px 16px rgba(0,0,0,0.3);
+        position: relative;
+        z-index: 1;
+        animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    }
 
-        /* Container principal */
-        .container {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            width: 100%;
-            max-width: 440px;
-            padding: 0;
-            box-shadow:
-                0 0 0 1px rgba(255,255,255,0.04),
-                0 20px 60px rgba(0,0,0,0.5),
-                0 4px 16px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
-            animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
-        }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+    .card-header {
+        padding: 28px 32px 20px;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
+    }
 
-        /* Cabeçalho do card */
-        .card-header {
-            padding: 28px 32px 20px;
-            border-bottom: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
+    .card-header::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        border-radius: var(--radius) var(--radius) 0 0;
+    }
 
-        .card-header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            border-radius: var(--radius) var(--radius) 0 0;
-        }
+    .school-name {
+        display: flex; align-items: center; gap: 10px;
+        margin-bottom: 18px; padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+    }
 
-        /* Nome da escola */
-        .school-name {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 18px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
-        }
+    .school-icon { width: 28px; height: 28px; color: var(--accent); flex-shrink: 0; opacity: 0.85; }
 
-        .school-icon {
-            width: 28px;
-            height: 28px;
-            color: var(--accent);
-            flex-shrink: 0;
-            opacity: 0.85;
-        }
+    .school-text { display: flex; flex-direction: column; line-height: 1.2; }
 
-        .school-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
+    .school-label {
+        font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--accent); opacity: 0.8;
+    }
 
-        .school-label {
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--accent);
-            opacity: 0.8;
-        }
+    .school-full {
+        font-family: 'DM Serif Display', serif;
+        font-size: 15px; color: var(--text); letter-spacing: 0.01em;
+    }
 
-        .school-full {
-            font-family: 'DM Serif Display', serif;
-            font-size: 15px;
-            color: var(--text);
-            letter-spacing: 0.01em;
-        }
+    .badge {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: var(--accent-glow); border: 1px solid rgba(79,142,247,0.2);
+        color: var(--accent); font-size: 11px; font-weight: 600;
+        letter-spacing: 0.08em; text-transform: uppercase;
+        padding: 4px 10px; border-radius: 99px; margin-bottom: 14px;
+    }
 
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--accent-glow);
-            border: 1px solid rgba(79,142,247,0.2);
-            color: var(--accent);
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 4px 10px;
-            border-radius: 99px;
-            margin-bottom: 14px;
-        }
+    .badge::before {
+        content: ''; width: 6px; height: 6px;
+        border-radius: 50%; background: var(--accent);
+        animation: pulse 2s infinite;
+    }
 
-        .badge::before {
-            content: '';
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--accent);
-            animation: pulse 2s infinite;
-        }
+    @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(0.8); }
+    }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
+    h2 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 26px; font-weight: 400;
+        color: var(--text); letter-spacing: -0.02em; line-height: 1.2;
+    }
 
-        h2 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 26px;
-            font-weight: 400;
-            color: var(--text);
-            letter-spacing: -0.02em;
-            line-height: 1.2;
-        }
+    h2 span {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
 
-        h2 span {
-            background: linear-gradient(90deg, var(--accent), var(--accent2));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
 
-        .subtitle {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-top: 4px;
-            font-weight: 300;
-        }
+    .card-body { padding: 24px 32px 32px; }
 
-        /* Conteúdo do form */
-        .card-body {
-            padding: 24px 32px 32px;
-        }
+    .messages { margin-bottom: 20px; }
 
-        /* Mensagens */
-        .messages {
-            margin-bottom: 20px;
-        }
+    .alert {
+        display: flex; align-items: center; gap: 10px;
+        padding: 11px 14px; border-radius: var(--radius-sm);
+        font-size: 13px; font-weight: 500; margin-bottom: 8px;
+        position: relative; animation: fadeIn 0.3s ease;
+    }
 
-        .alert {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 11px 14px;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            animation: fadeIn 0.3s ease;
-        }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateX(-6px); }
+        to   { opacity: 1; transform: translateX(0); }
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateX(-6px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
+    .alert::before {
+        content: ''; width: 3px; height: 100%;
+        position: absolute; left: 0; border-radius: 4px 0 0 4px;
+    }
 
-        .alert::before {
-            content: '';
-            width: 3px;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            border-radius: 4px 0 0 4px;
-        }
+    .alert-success { background: var(--success-bg); color: var(--success-text); border: 1px solid rgba(52,211,153,0.15); }
+    .alert-success::before { background: var(--success-text); }
+    .alert-error { background: var(--error-bg); color: var(--error-text); border: 1px solid rgba(248,113,113,0.15); }
+    .alert-error::before { background: var(--error-text); }
 
-        .alert { position: relative; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; min-width: 0; overflow: hidden; }
 
-        .alert-success {
-            background: var(--success-bg);
-            color: var(--success-text);
-            border: 1px solid rgba(52,211,153,0.15);
-        }
+    .form-group { margin-bottom: 16px; position: relative; }
 
-        .alert-success::before { background: var(--success-text); }
+    label {
+        display: block; font-size: 12px; font-weight: 600;
+        color: var(--text-muted); letter-spacing: 0.06em;
+        text-transform: uppercase; margin-bottom: 7px;
+    }
 
-        .alert-error {
-            background: var(--error-bg);
-            color: var(--error-text);
-            border: 1px solid rgba(248,113,113,0.15);
-        }
+    input, select {
+        width: 100%; min-width: 0; padding: 10px 13px;
+        background: var(--surface2); border: 1px solid var(--border);
+        border-radius: var(--radius-sm); color: var(--text);
+        font-family: 'DM Sans', sans-serif; font-size: 14px;
+        transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        outline: none; -webkit-appearance: none; appearance: none;
+    }
 
-        .alert-error::before { background: var(--error-text); }
+    input::placeholder { color: rgba(122,128,153,0.5); }
 
-        /* Grupos */
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
+    input:focus, select:focus {
+        border-color: rgba(79,142,247,0.5);
+        background: rgba(79,142,247,0.04);
+        box-shadow: 0 0 0 3px rgba(79,142,247,0.1);
+    }
 
-        .form-group {
-            margin-bottom: 16px;
-            position: relative;
-        }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.6); cursor: pointer; }
 
-        label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            margin-bottom: 7px;
-        }
+    .errorlist { list-style: none; color: var(--error-text); font-size: 11.5px; margin-top: 5px; font-weight: 500; }
 
-        /* Inputs */
-        input,
-        select {
-            width: 100%;
-            padding: 10px 13px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 400;
-            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
+    .btn-submit {
+        width: 100%; padding: 12px; margin-top: 6px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #fff; border: none; border-radius: var(--radius-sm);
+        font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+        letter-spacing: 0.03em; cursor: pointer; position: relative; overflow: hidden;
+        transition: transform 0.15s, box-shadow 0.2s;
+        box-shadow: 0 4px 18px rgba(79,142,247,0.25);
+    }
 
-        input::placeholder {
-            color: rgba(122,128,153,0.5);
-        }
+    .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(79,142,247,0.35); }
+    .btn-submit:active { transform: translateY(0); }
 
-        input:focus,
-        select:focus {
-            border-color: rgba(79,142,247,0.5);
-            background: rgba(79,142,247,0.04);
-            box-shadow: 0 0 0 3px rgba(79,142,247,0.1);
-        }
+    .card-footer {
+        padding: 14px 32px; border-top: 1px solid var(--border);
+        display: flex; align-items: center; justify-content: space-between;
+    }
 
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(0.6);
-            cursor: pointer;
-        }
+    .footer-info { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
 
-        /* Erros de campo */
-        .errorlist {
-            list-style: none;
-            color: var(--error-text);
-            font-size: 11.5px;
-            margin-top: 5px;
-            font-weight: 500;
-        }
+    .footer-info .dot {
+        width: 5px; height: 5px; border-radius: 50%;
+        background: var(--success-text); animation: pulse 2s infinite;
+    }
 
-        /* Botão */
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            margin-top: 6px;
-            background: linear-gradient(135deg, var(--accent), var(--accent2));
-            color: #fff;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-family: 'DM Sans', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.15s, box-shadow 0.2s, opacity 0.2s;
-            box-shadow: 0 4px 18px rgba(79,142,247,0.25);
-        }
+    .icon-label { display: inline-flex; align-items: center; gap: 5px; }
+    .icon-label svg { width: 11px; height: 11px; opacity: 0.6; }
+</style>
+{% endblock %}
 
-        .btn-submit::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
-            opacity: 0;
-            transition: opacity 0.2s;
-        }
-
-        .btn-submit:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 8px 24px rgba(79,142,247,0.35);
-        }
-
-        .btn-submit:hover::before { opacity: 1; }
-
-        .btn-submit:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(79,142,247,0.2);
-        }
-
-        /* Divisor */
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 20px 0;
-        }
-
-        /* Rodapé do card */
-        .card-footer {
-            padding: 14px 32px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .footer-info {
-            font-size: 11px;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .footer-info .dot {
-            width: 5px; height: 5px;
-            border-radius: 50%;
-            background: var(--success-text);
-            animation: pulse 2s infinite;
-        }
-
-        /* Ícones SVG inline nos labels */
-        .icon-label {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .icon-label svg {
-            width: 11px; height: 11px;
-            opacity: 0.6;
-        }
-    </style>
-</head>
-<body>
-
-<!-- Assinatura discreta -->
-<span class="signature">cristian</span>
-
+{% block content %}
 <div class="container">
 
-    <!-- Cabeçalho -->
     <div class="card-header">
         <div class="school-name">
             <svg class="school-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -444,14 +257,11 @@
         <p class="subtitle">Registre a entrada e saída do estudante</p>
     </div>
 
-    <!-- Corpo do formulário -->
     <div class="card-body">
-
-        <!-- Mensagens do backend -->
         <div class="messages">
             {% if messages %}
                 {% for message in messages %}
-                    <div class="alert 
+                    <div class="alert
                         {% if message.tags == 'success' %}alert-success{% endif %}
                         {% if message.tags == 'error' %}alert-error{% endif %}">
                         {{ message }}
@@ -463,7 +273,6 @@
         <form method="POST">
             {% csrf_token %}
 
-            <!-- Nome (linha completa) -->
             <div class="form-group">
                 <label class="icon-label">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -473,7 +282,6 @@
                 {{ form.nome.errors }}
             </div>
 
-            <!-- CPF e Idade lado a lado -->
             <div class="form-row">
                 <div class="form-group">
                     <label class="icon-label">
@@ -483,7 +291,6 @@
                     {{ form.cpf }}
                     {{ form.cpf.errors }}
                 </div>
-
                 <div class="form-group">
                     <label class="icon-label">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
@@ -494,7 +301,6 @@
                 </div>
             </div>
 
-            <!-- Entrada e Saída lado a lado -->
             <div class="form-row">
                 <div class="form-group">
                     <label class="icon-label">
@@ -504,7 +310,6 @@
                     {{ form.entrada }}
                     {{ form.entrada.errors }}
                 </div>
-
                 <div class="form-group">
                     <label class="icon-label">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 21H3v-6"/><path d="M3 21 21 3"/><path d="M21 10V3h-7"/></svg>
@@ -519,7 +324,6 @@
         </form>
     </div>
 
-    <!-- Rodapé -->
     <div class="card-footer">
         <span class="footer-info">
             <span class="dot"></span>
@@ -529,6 +333,4 @@
     </div>
 
 </div>
-
-</body>
-</html>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.views.generic import FormView
 from django.urls import reverse_lazy
+from django.shortcuts import render
 
 from .models import Aluno
 from .forms import AlunoForm
@@ -21,3 +22,7 @@ class HomeView(FormView):
     def form_invalid(self, form):
         messages.error(self.request, 'Corrige os erros e tente novamente.')
         return super().form_invalid(form)
+
+
+def sobre(request):
+    return render(request, 'alunos/sobre.html')

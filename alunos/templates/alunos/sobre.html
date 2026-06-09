@@ -1,0 +1,81 @@
+{% extends "alunos/sidebar.html" %}
+{% block title %}Sobre{% endblock %}
+
+{% block extra_css %}
+<style>
+  .escola-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .escola-header h1 { font-size: 24px; font-weight: 700; color: #f0f2ff; }
+  .escola-header h1 span { color: #818cf8; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.35);
+    border-radius: 20px; padding: 6px 14px;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    color: #818cf8; text-transform: uppercase; margin-bottom: 28px;
+  }
+  .divider { height: 1px; background: rgba(255,255,255,0.07); margin: 20px 0 28px; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; color: #4a5070; text-transform: uppercase; margin-bottom: 20px; }
+  .devs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; margin-bottom: 36px; }
+  .dev-card {
+    background: #12172a; border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 22px 14px 18px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .dev-card:hover { border-color: rgba(129,140,248,0.4); transform: translateY(-3px); }
+  .dev-avatar { width: 60px; height: 60px; border-radius: 50%; background: #1e2240; display: flex; align-items: center; justify-content: center; }
+  .dev-avatar svg { width: 36px; height: 36px; fill: #5a6080; }
+  .dev-name { font-size: 13px; font-weight: 600; color: #c8cce0; text-align: center; }
+  .dev-role { font-size: 11px; color: #818cf8; background: rgba(99,102,241,0.1); border-radius: 20px; padding: 3px 10px; text-align: center; }
+  .about-box {
+    background: #12172a; border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 28px 30px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .about-box p { font-size: 14px; line-height: 1.8; color: #8a90ab; }
+  .about-box p strong { color: #b0b8d4; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="escola-header">
+  <span style="font-size:26px">🏫</span>
+  <h1>Escola Militar <span>Tiradentes</span> — Cuiabá</h1>
+</div>
+<div class="badge">● Sistema Escolar</div>
+
+<div class="divider"></div>
+
+<p class="section-label">Desenvolvedores</p>
+
+<div class="devs-grid">
+  <div class="dev-card">
+    <div class="dev-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div>
+    <span class="dev-name">Cristian Bueno</span>
+    <span class="dev-role">desenvolvedor geral</span>
+  </div>
+  <div class="dev-card">
+    <div class="dev-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div>
+    <span class="dev-name">Silas Campos</span>
+    <span class="dev-role">desenvolvedor front-end</span>
+  </div>
+  <div class="dev-card">
+    <div class="dev-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div>
+    <span class="dev-name">Cauã Henri</span>
+    <span class="dev-role">desenvolvedor back-end</span>
+  </div>
+  <div class="dev-card">
+    <div class="dev-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div>
+    <span class="dev-name">Yasmin Rianne</span>
+    <span class="dev-role">analista geral</span>
+  </div>
+</div>
+
+<div class="about-box">
+  <p>Este sistema foi desenvolvido por <strong>Cristian Bueno, Silas Campos, Cauã Henri e Yasmin Rhiane</strong>, na Escola da Polícia Militar Tiradentes de Cuiabá. O projeto representa o resultado do aprendizado, dedicação e trabalho em equipe dos integrantes.</p>
+  <p>O desenvolvimento deste sistema foi uma experiência muito enriquecedora, proporcionando aprendizado sobre programação, resolução de problemas, organização de projetos e colaboração entre os membros da equipe.</p>
+  <p>Agradecemos especialmente ao <strong>professor Elton</strong> pelas aulas, orientações e incentivo. Também reconhecemos os <strong>professores Francisco e Luís</strong>, que contribuíram para a formação da base necessária para este trabalho.</p>
+</div>
+
+{% endblock %}
