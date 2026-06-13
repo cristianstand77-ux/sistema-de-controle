@@ -66,10 +66,12 @@
 <body>
 
   <aside class="sidebar">
-    <div class="sidebar-avatar">
-      <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-    </div>
-    <span class="sidebar-username">Admin</span>
+    <a href="{% if user.is_authenticated %}{% url 'coordenador_home' %}{% else %}{% url 'login' %}{% endif %}" style="text-decoration:none; display:flex; flex-direction:column; align-items:center; margin-bottom:40px;">
+      <div class="sidebar-avatar">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+      </div>
+      <span class="sidebar-username">{% if user.is_authenticated %}{{ user.username }}{% else %}Perfil{% endif %}</span>
+    </a>
 
     <nav class="sidebar-nav">
       <a href="{% url 'home' %}" class="sidebar-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">

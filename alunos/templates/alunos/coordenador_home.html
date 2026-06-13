@@ -1,0 +1,75 @@
+{% extends "alunos/sidebar.html" %}
+{% block title %}Painel do Coordenador{% endblock %}
+
+{% block extra_css %}
+<style>
+  .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+  .panel-header-left { display: flex; align-items: center; gap: 12px; }
+  .panel-header h1 { font-size: 24px; font-weight: 700; color: #f0f2ff; }
+  .panel-header h1 span { color: #818cf8; }
+  .logout-link {
+    font-size: 12px; color: #7a8099; text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.07); border-radius: 8px;
+    padding: 8px 14px; transition: color 0.2s, border-color 0.2s;
+  }
+  .logout-link:hover { color: #f87171; border-color: rgba(248,113,113,0.3); }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+  .panel-card {
+    background: #12172a; border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 24px; text-decoration: none;
+    display: flex; flex-direction: column; gap: 8px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .panel-card:hover { border-color: rgba(129,140,248,0.4); transform: translateY(-3px); }
+  .panel-card .icon { font-size: 28px; }
+  .panel-card .title { font-size: 15px; font-weight: 600; color: #e8eaf0; }
+  .panel-card .desc { font-size: 12px; color: #7a8099; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="panel-header">
+  <div class="panel-header-left">
+    <span style="font-size:26px">🛡️</span>
+    <h1>Painel do <span>Coordenador</span></h1>
+  </div>
+
+  <form method="post" action="{% url 'logout' %}" style="display:inline;">
+    {% csrf_token %}
+    <button
+      type="submit"
+      class="logout-link"
+      style="background:none; border:none; cursor:pointer;"
+    >
+      Sair
+    </button>
+  </form>
+</div>
+
+
+
+
+<div class="cards-grid">
+  <a href="{% url 'cadastrar_aluno' %}" class="panel-card">
+    <span class="icon">➕</span>
+    <span class="title">Cadastrar Aluno</span>
+    <span class="desc">Adicionar novo aluno com código de acesso</span>
+  </a>
+
+  <a href="{% url 'registros_list' %}" class="panel-card">
+    <span class="icon">📋</span>
+    <span class="title">Registros de Entrada/Saída</span>
+    <span class="desc">Visualizar histórico de acessos</span>
+  </a>
+
+  <a href="{% url 'home' %}" class="panel-card">
+    <span class="icon">🏫</span>
+    <span class="title">Novo registro</span>
+    <span class="desc">Voltar para a tela pública de registro</span>
+  </a>
+</div>
+
+{% endblock %}

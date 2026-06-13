@@ -1,9 +1,9 @@
 {% extends "alunos/sidebar.html" %}
-{% block title %}Cadastro de Aluno{% endblock %}
+{% block title %}Catraca - Tiradentes{% endblock %}
 
 {% block extra_css %}
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
     :root {
         --bg: #0f1117;
@@ -40,24 +40,31 @@
 
     .container {
         background: var(--surface); border: 1px solid var(--border);
-        border-radius: var(--radius); width: 100%; max-width: 440px;
+        border-radius: var(--radius); width: 100%; max-width: 420px;
         box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 20px 60px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3);
         position: relative; z-index: 1;
         animation: slideUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
     }
 
-    @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
 
-    .card-header { padding: 28px 32px 20px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+    .card-header {
+        padding: 32px 32px 20px; text-align: center;
+        border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
+    }
 
     .card-header::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
         background: linear-gradient(90deg, var(--accent), var(--accent2));
-        border-radius: var(--radius) var(--radius) 0 0;
     }
 
+    .school-icon-big { font-size: 40px; margin-bottom: 8px; }
+
     h2 {
-        font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400;
+        font-family: 'DM Serif Display', serif; font-size: 24px; font-weight: 400;
         color: var(--text); letter-spacing: -0.02em;
     }
 
@@ -66,67 +73,63 @@
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
 
-    .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 300; }
+    .subtitle { font-size: 13px; color: var(--text-muted); margin-top: 6px; font-weight: 300; }
 
-    .card-body { padding: 24px 32px 32px; }
+    .card-body { padding: 32px; }
 
     .messages { margin-bottom: 20px; }
 
     .alert {
         display: flex; align-items: center; gap: 10px;
-        padding: 11px 14px; border-radius: var(--radius-sm);
-        font-size: 13px; font-weight: 500; margin-bottom: 8px;
+        padding: 12px 14px; border-radius: var(--radius-sm);
+        font-size: 14px; font-weight: 500; margin-bottom: 8px;
+        animation: fadeIn 0.3s ease;
     }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: translateX(0); } }
 
     .alert-success { background: var(--success-bg); color: var(--success-text); border: 1px solid rgba(52,211,153,0.15); }
     .alert-error { background: var(--error-bg); color: var(--error-text); border: 1px solid rgba(248,113,113,0.15); }
 
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; min-width: 0; }
-
-    .form-group { margin-bottom: 16px; position: relative; }
-
-    label {
-        display: block; font-size: 12px; font-weight: 600;
-        color: var(--text-muted); letter-spacing: 0.06em;
-        text-transform: uppercase; margin-bottom: 7px;
-    }
-
-    input {
-        width: 100%; min-width: 0; padding: 10px 13px;
+    .codigo-input {
+        width: 100%; padding: 18px 16px; text-align: center;
         background: var(--surface2); border: 1px solid var(--border);
         border-radius: var(--radius-sm); color: var(--text);
-        font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
+        font-family: 'DM Sans', sans-serif; font-size: 22px; font-weight: 600;
+        letter-spacing: 0.1em; outline: none;
         transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     }
 
-    input::placeholder { color: rgba(122,128,153,0.5); }
+    .codigo-input::placeholder { color: rgba(122,128,153,0.4); font-weight: 400; letter-spacing: 0.03em; }
 
-    input:focus {
+    .codigo-input:focus {
         border-color: rgba(79,142,247,0.5); background: rgba(79,142,247,0.04);
         box-shadow: 0 0 0 3px rgba(79,142,247,0.1);
     }
 
-    .errorlist { list-style: none; color: var(--error-text); font-size: 11.5px; margin-top: 5px; font-weight: 500; }
-
     .btn-submit {
-        width: 100%; padding: 12px; margin-top: 6px;
+        width: 100%; padding: 14px; margin-top: 14px;
         background: linear-gradient(135deg, var(--accent), var(--accent2));
         color: #fff; border: none; border-radius: var(--radius-sm);
-        font-size: 14px; font-weight: 600; cursor: pointer;
-        box-shadow: 0 4px 18px rgba(79,142,247,0.25);
+        font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+        letter-spacing: 0.03em; cursor: pointer;
         transition: transform 0.15s, box-shadow 0.2s;
+        box-shadow: 0 4px 18px rgba(79,142,247,0.25);
     }
 
     .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(79,142,247,0.35); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .errorlist { list-style: none; color: var(--error-text); font-size: 12px; margin-top: 8px; font-weight: 500; text-align: center; }
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-
     <div class="card-header">
-        <h2>Cadastro de <span>Aluno</span></h2>
-        <p class="subtitle">Cadastre o aluno e o código de acesso à catraca</p>
+        <div class="school-icon-big">🏫</div>
+        <h2>Controle de <span>Acesso</span></h2>
+        <p class="subtitle">Digite seu código para registrar entrada ou saída</p>
     </div>
 
     <div class="card-body">
@@ -140,37 +143,21 @@
             {% endif %}
         </div>
 
-        <form method="POST">
+        <form method="POST" id="catraca-form">
             {% csrf_token %}
-
-            <div class="form-group">
-                <label>Código de acesso</label>
-                {{ form.codigo }}
-                {{ form.codigo.errors }}
-            </div>
-
-            <div class="form-group">
-                <label>Nome</label>
-                {{ form.nome }}
-                {{ form.nome.errors }}
-            </div>
-
-            <div class="form-row">
-                <div class="form-group">
-                    <label>CPF</label>
-                    {{ form.cpf }}
-                    {{ form.cpf.errors }}
-                </div>
-                <div class="form-group">
-                    <label>Idade</label>
-                    {{ form.idade }}
-                    {{ form.idade.errors }}
-                </div>
-            </div>
-
-            <button class="btn-submit" type="submit">Cadastrar Aluno</button>
+            {{ form.codigo }}
+            {{ form.codigo.errors }}
+            <button class="btn-submit" type="submit">Registrar</button>
         </form>
     </div>
-
 </div>
+
+<script>
+    // mantém o foco no campo para leitura rápida (ex: leitor de código de barras)
+    const input = document.getElementById('id_codigo');
+    if (input) {
+        input.focus();
+        input.addEventListener('blur', () => setTimeout(() => input.focus(), 50));
+    }
+</script>
 {% endblock %}

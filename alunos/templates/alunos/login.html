@@ -1,0 +1,110 @@
+{% extends "alunos/sidebar.html" %}
+{% block title %}Login Coordenador{% endblock %}
+
+{% block extra_css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+    :root {
+        --bg: #0f1117;
+        --surface: #181c27;
+        --surface2: #1e2235;
+        --border: rgba(255,255,255,0.07);
+        --accent: #4f8ef7;
+        --accent2: #7c5cfc;
+        --text: #e8eaf0;
+        --text-muted: #7a8099;
+        --error-bg: rgba(248,113,113,0.1);
+        --error-text: #f87171;
+        --radius: 14px;
+        --radius-sm: 8px;
+    }
+
+    body { font-family: 'DM Sans', sans-serif; }
+
+    .main-content {
+        display: flex; justify-content: center; align-items: center;
+        min-height: 100vh; padding: 40px 48px;
+    }
+
+    .container {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: var(--radius); width: 100%; max-width: 380px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        padding: 32px;
+    }
+
+    h2 {
+        font-family: 'DM Serif Display', serif; font-size: 22px;
+        color: var(--text); margin-bottom: 4px;
+    }
+
+    h2 span {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+
+    .form-group { margin-bottom: 16px; }
+
+    label {
+        display: block; font-size: 12px; font-weight: 600;
+        color: var(--text-muted); letter-spacing: 0.06em;
+        text-transform: uppercase; margin-bottom: 7px;
+    }
+
+    input {
+        width: 100%; padding: 10px 13px;
+        background: var(--surface2); border: 1px solid var(--border);
+        border-radius: var(--radius-sm); color: var(--text);
+        font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+        border-color: rgba(79,142,247,0.5);
+        box-shadow: 0 0 0 3px rgba(79,142,247,0.1);
+    }
+
+    .errorlist { list-style: none; color: var(--error-text); font-size: 12px; margin-top: 5px; }
+
+    .alert-error {
+        background: var(--error-bg); color: var(--error-text);
+        border: 1px solid rgba(248,113,113,0.15);
+        padding: 11px 14px; border-radius: var(--radius-sm);
+        font-size: 13px; margin-bottom: 16px;
+    }
+
+    .btn-submit {
+        width: 100%; padding: 12px; margin-top: 6px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #fff; border: none; border-radius: var(--radius-sm);
+        font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Área do <span>Coordenador</span></h2>
+    <p class="subtitle">Faça login para gerenciar alunos e registros</p>
+
+    {% if form.errors %}
+        <div class="alert-error">Usuário ou senha inválidos.</div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>Usuário</label>
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+            <label>Senha</label>
+            {{ form.password }}
+        </div>
+        <button class="btn-submit" type="submit">Entrar</button>
+    </form>
+</div>
+{% endblock %}
