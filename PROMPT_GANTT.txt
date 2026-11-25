@@ -1,0 +1,32 @@
+PROMPT PARA O CHATGPT GERAR A IMAGEM DO GRÁFICO DE GANTT
+(copie tudo abaixo e cole no ChatGPT pedindo a imagem)
+
+------------------------------------------------------------
+
+Gere uma IMAGEM de um gráfico de Gantt profissional, limpo e legível, em português do Brasil, com o título:
+
+"Sistema de Entrada e Saída de Alunos — Cronograma do Projeto (25/10/2026 a 25/11/2026)"
+
+Formato: horizontal (paisagem), fundo branco, fonte sem serifa, alta resolução.
+Eixo horizontal: linha do tempo de 25/10/2026 até 25/11/2026, dividida em semanas com as datas visíveis (25/10, 01/11, 08/11, 15/11, 22/11, 25/11) e linhas verticais de grade claras.
+Eixo vertical: lista das tarefas, na mesma ordem abaixo, de cima para baixo.
+Cada tarefa é uma barra horizontal colorida posicionada exatamente nas datas indicadas, com o nome do responsável escrito ao lado direito da barra.
+Use uma cor diferente por responsável e inclua uma legenda de cores no canto inferior.
+
+TAREFAS (nome | início | fim | responsável):
+1. Levantamento de requisitos com a escola | 25/10 | 28/10 | Silas Campos
+2. Modelagem do banco de dados | 29/10 | 01/11 | Cristian Bueno
+3. Arquitetura e setup do repositório GitHub | 29/10 | 31/10 | Cristian Bueno
+4. Protótipo das telas (layout) | 01/11 | 05/11 | Vitor Cerqueira
+5. Back-end: cadastro de alunos | 02/11 | 08/11 | João Wolf
+6. Back-end: registro de entrada e saída | 06/11 | 13/11 | Cristian Bueno
+7. Front-end: telas de cadastro e registro | 06/11 | 14/11 | Vitor Cerqueira
+8. Relatório de presença / histórico | 14/11 | 18/11 | João Wolf
+9. Integração front-end + back-end | 15/11 | 19/11 | Cristian Bueno e Vitor Cerqueira
+10. Testes e correção de erros | 19/11 | 22/11 | Silas Campos
+11. Documentação do projeto (README) | 20/11 | 23/11 | Silas Campos
+12. Apresentação final | 24/11 | 25/11 | Equipe toda
+
+MARCOS: desenhe pequenos losangos (diamantes) na linha do tempo em 01/11 ("Requisitos aprovados"), 13/11 ("Núcleo funcionando"), 22/11 ("Sistema testado") e 25/11 ("Entrega final").
+
+Importante: todos os textos devem estar legíveis e sem erros de ortografia, as barras devem respeitar exatamente as datas de início e fim, e nenhuma tarefa deve ficar fora do intervalo 25/10 a 25/11.
